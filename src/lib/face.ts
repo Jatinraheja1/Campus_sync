@@ -18,13 +18,15 @@ export function loadFaceModels(): Promise<FaceApi> {
   if (!loading) {
     loading = (async () => {
       const fa = await import("@vladmandic/face-api");
+      // Some published face-api type bundles omit TensorFlow runtime methods that exist at runtime.
+      const tfRuntime = fa.tf as typeof fa.tf & { setBackend: (backend: string) => Promise<boolean>; ready: () => Promise<void> };
       try {
-        const ok = await fa.tf.setBackend("webgl");
-        if (!ok) await fa.tf.setBackend("cpu");
+        const ok = await tfRuntime.setBackend("webgl");
+        if (!ok) await tfRuntime.setBackend("cpu");
       } catch {
-        await fa.tf.setBackend("cpu");
+        await tfRuntime.setBackend("cpu");
       }
-      await fa.tf.ready();
+      await tfRuntime.ready();
       await Promise.all([
         fa.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
         fa.nets.faceLandmark68Net.loadFromUri(MODEL_URL),

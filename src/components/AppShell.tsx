@@ -7,6 +7,7 @@ import { useConnectivity } from "../context/ConnectivityContext";
 import { hasBackend } from "../lib/api";
 import { ROLE_LABEL, dashboardPath } from "../lib/users";
 import { ConnectionBadge, DemoToggle } from "./ConnectionControls";
+import CampusChatbot from "./CampusChatbot";
 
 const ROLE_ICON = { student: UserRound, teacher: UserCog, admin: ShieldCheck } as const;
 
@@ -15,8 +16,8 @@ export function Brand({ to = "/" }: { to?: string }) {
     <Link to={to} className="brand">
       <span className="brand-mark"><GraduationCap size={22} /></span>
       <span>
-        <strong>SmartAttend</strong>
-        <small>Offline-first attendance</small>
+        <strong>CampusSync</strong>
+        <small>Smart campus, connected</small>
       </span>
     </Link>
   );
@@ -55,6 +56,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
         <div className="banner banner-error" role="alert"><AlertTriangle size={20} /> <span>{storageError}</span></div>
       )}
       <main>{children}</main>
+      <CampusChatbot />
       <footer>{hasBackend ? "Authenticated API mode: sign-in and roster management use the configured backend. Some attendance views still use local demo data." : "Offline demo mode: sign-in and sync are simulated in the frontend. Attendance is stored in this browser."}</footer>
     </div>
   );

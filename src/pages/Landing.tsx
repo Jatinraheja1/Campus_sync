@@ -26,10 +26,11 @@ export default function Landing() {
 
       <section className="hero card">
         <div>
-          <h1>Attendance that works without internet</h1>
+          <h1>A smarter, more connected campus.</h1>
           <p>
-            SmartAttend saves every attendance record on the device first. When the connection returns,
-            saved records are synchronized, so no class is ever lost to a bad network.
+            CampusSync brings attendance, academic schedules and role-based campus tools together.
+            Its AI scheduling suite generates validated timetables, proposes minimum-disruption recovery
+            plans and answers campus questions using data the signed-in user is allowed to access.
           </p>
         </div>
         <ConnectionBadge large />
@@ -58,7 +59,7 @@ export default function Landing() {
           </article>
         ))}
       </div>
-      <footer>College engineering project prototype. Demo sign-in only; not secure for real use.</footer>
+      <footer>CampusSync · Smart campus operations with responsible AI scheduling.</footer>
     </div>
   );
 }

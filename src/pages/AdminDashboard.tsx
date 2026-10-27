@@ -11,6 +11,7 @@ import UserManagement from "../components/UserManagement";
 import AuditLogViewer from "../components/AuditLogViewer";
 import { hasBackend } from "../lib/api";
 import AdminTimetable from "../components/AdminTimetable";
+import AIControlCenter from "../components/AIControlCenter";
 import AdminAttendanceHistory from "../components/AdminAttendanceHistory";
 import { useState } from "react";
 
@@ -49,6 +50,7 @@ export default function AdminDashboard() {
       {activePanel === "history" && <><AdminAttendanceHistory localRecords={records}/><section className="card panel"><div className="panel-head"><div><h2><RotateCcw size={18}/> Local demo data controls</h2><p className="hint">This resets only the demo records saved in this browser; it does not delete PostgreSQL records.</p></div><button className="btn btn-ghost" onClick={() => { if (window.confirm("Reset this browser’s attendance to the original sample data?")) resetDemoData(); }}><RotateCcw size={15}/> Reset local demo data</button></div></section></>}
       {activePanel === "audit" && <AuditLogViewer />}
 
+      <AIControlCenter />
       <AdminTimetable />
       <UserManagement />
       <FaceEnrollmentPanel />

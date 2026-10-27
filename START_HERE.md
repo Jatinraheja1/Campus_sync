@@ -48,3 +48,13 @@ The backend JavaScript syntax check and automated source/contract tests pass in 
 npm run build
 npm run api:test
 ```
+
+
+## AI timetable, recovery and chatbot
+1. Sign in as admin and scroll to **AI Timetable & Recovery Center**.
+2. In **Generate timetable**, add one requirement per subject/section, including weekly sessions and duration. Review the preview before selecting **Approve & apply timetable**.
+3. In **Recovery engine**, choose a weekday and either a teacher plus a qualified substitute, or a room plus a replacement room. Review proposed changes before applying.
+4. In **Validate schedule**, run an independent check for teacher, section and room overlaps.
+5. The **Ask AI** button is available on signed-in dashboards. It uses role-scoped timetable/attendance context. For LLM-backed free-form responses, set `OPENAI_API_KEY` in `server/.env`; without it, supported questions still receive grounded local responses.
+
+The generator currently schedules Monday–Friday, 09:00–17:00, with 12:00–13:00 reserved for lunch. It does not invent teacher availability or a room inventory; use the available requirements and review every proposal before applying.

@@ -1,4 +1,4 @@
-# SmartAttend v3: Whole-class face recognition (offline-first)
+# CampusSync — Smart Campus Management with AI Scheduling
 
 React + TypeScript + Vite + React Router. Builds on the v2 role-based app (Student / Teacher / Administrator).
 
@@ -8,6 +8,35 @@ npm install     # also copies the face model files into public/models (postinsta
 npm run dev
 ```
 Open http://localhost:5173 (camera access works on `localhost` or HTTPS only).
+
+
+## CampusSync AI features
+
+### Admin: AI Timetable & Recovery Center
+- **Generate timetable:** enter class group, section, subject, teacher, sessions per week, duration and room. The constraint solver schedules Monday–Friday between 09:00 and 17:00 (12:00–13:00 lunch break).
+- **Replace previewed section only:** existing slots for the requested class group + section are replaced only after the admin approves. Other active timetable entries remain fixed.
+- **Independent validation:** checks teacher, section and room overlaps before a preview can be applied.
+- **Minimum-disruption recovery:** simulate a teacher absence (choose a qualified substitute) or room outage (enter an available replacement room). The system finds a valid plan, shows before/after changes, and applies only after confirmation.
+- If constraints cannot be satisfied, the API returns an error rather than applying an invalid timetable.
+
+### Role-based CampusSync Assistant
+The floating **Ask AI** assistant appears on signed-in dashboards:
+- Students can ask about their own timetable and recorded attendance.
+- Teachers can ask about their timetable and assigned-subject attendance summary.
+- Admins can ask about schedule validation and system-level counts.
+- The server scopes retrieved data by the authenticated role. Chat requests never change timetable data.
+
+The assistant uses a safe, grounded local response mode by default. To enable natural-language LLM responses, set `OPENAI_API_KEY` in `server/.env` and optionally set `OPENAI_MODEL` (default `gpt-4o-mini`). Keep the key on the server only; never put it in frontend `.env`. Scheduling, validation and recovery do not require an LLM API key.
+
+### Test the new scheduling logic
+```powershell
+npm run api:test
+node --test server/tests/ai.test.js
+npm run build
+```
+
+Scheduling assumptions/limits: the current generator uses a fixed weekday/time grid, does not yet maintain a separate room inventory or per-teacher availability calendar, and treats other existing timetable slots as fixed. The recovery tool asks the admin to select a qualified substitute or provide a replacement room. These assumptions are explicit in the UI and can be expanded as more scheduling data is added.
+
 
 Demo logins (frontend-only, NOT secure): student@demo.com / Student123, teacher@demo.com / Teacher123, admin@demo.com / Admin123.
 

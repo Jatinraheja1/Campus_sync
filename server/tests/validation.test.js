@@ -89,3 +89,17 @@ test('teacher attendance uploads require an active timetable slot for the class 
  assert.match(api,/No active timetable slot assigns this subject to your selected class and section/);
  assert.match(api,/FROM timetable_entries WHERE active=TRUE AND teacher_id=\$1 AND subject_id=\$2 AND section=\$3 AND class_group=\$4/);
 });
+
+test('AI timetable and recovery endpoints are admin-only and chatbot is authenticated',()=>{
+ assert.match(api,/app\.get\('\/ai\/timetable\/validate', authenticate, allow\('admin'\)/);
+ assert.match(api,/app\.post\('\/ai\/timetable\/generate', authenticate, allow\('admin'\)/);
+ assert.match(api,/app\.post\('\/ai\/timetable\/apply', authenticate, allow\('admin'\)/);
+ assert.match(api,/app\.post\('\/ai\/timetable\/recover', authenticate, allow\('admin'\)/);
+ assert.match(api,/app\.post\('\/ai\/timetable\/recover\/apply', authenticate, allow\('admin'\)/);
+ assert.match(api,/app\.post\('\/ai\/chat', authenticate/);
+});
+
+test('manual timetable endpoints reject teacher, section and room overlap',()=>{
+ assert.match(api,/LOWER\(room\)=LOWER\(\$8\)/);
+ assert.match(api,/same teacher, class section, or room/);
+});

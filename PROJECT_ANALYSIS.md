@@ -17,3 +17,10 @@
 2. Add optional server authentication to the existing login flow when `VITE_API_URL` is configured, preserving the offline/demo login when no backend is configured. Send the bearer token with attendance/session sync.
 3. Add automated backend tests that can run without a live PostgreSQL service for validation and route behavior where possible; run frontend tests/build if dependencies can be installed.
 4. Document setup, API contract, test evidence and limitations. Package the complete source in a new ZIP, excluding secrets, caches and `node_modules`.
+
+
+## AI enhancement update
+- Added admin-only APIs for timetable validation, generation preview/apply, and disruption recovery preview/apply.
+- Added a role-authenticated `/ai/chat` endpoint; student and teacher data queries are scoped to their account/assignments, while admin context includes timetable validation and system counts.
+- Added frontend `AIControlCenter` and `CampusChatbot` components.
+- The AI scheduling implementation is a deterministic constraint solver rather than a free-form LLM. The optional LLM is used only for chat language generation, with data limited to the current role's retrieved context.
