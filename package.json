@@ -1,0 +1,38 @@
+{
+  "name": "smartattend",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "copy-models": "node scripts/copy-models.mjs",
+    "postinstall": "node scripts/copy-models.mjs",
+    "predev": "node scripts/copy-models.mjs",
+    "prebuild": "node scripts/copy-models.mjs",
+    "test": "node --experimental-strip-types --test tests/analytics.test.ts",
+    "api:install": "npm --prefix server install",
+    "api:dev": "npm --prefix server run dev",
+    "api:migrate": "npm --prefix server run migrate",
+    "api:seed": "npm --prefix server run seed",
+    "api:test": "npm --prefix server test"
+  },
+  "dependencies": {
+    "lucide-react": "^0.460.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "@vladmandic/face-api": "^1.7.13"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
